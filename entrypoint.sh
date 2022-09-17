@@ -1,43 +1,26 @@
-# If not working, first do: sudo rm -rf /tmp/.docker.xauth
-# It still not working, try running the script as root.
+#!/bin/bash
+# Basic entrypoint for ROS / Colcon Docker containers
 
-XAUTH=/tmp/.docker.xauth
+# Source ROS and Colcon workspaces
+source /opt/ros/noetic/setup.bash
+echo "Sourced ROS2 Noetic"
 
-echo "Preparing Xauthority data..."
-xauth_list=$(xauth nlist :0 | tail -n 1 | sed -e 's/^..../ffff/')
-if [ ! -f $XAUTH ]; then
-    if [ ! -z "$xauth_list" ]; then
-        echo $xauth_list | xauth -f $XAUTH nmerge -
-    else
-        touch $XAUTH
-    fi
-    chmod a+r $XAUTH
-fi
+# if [ -f /turtlebot3_ws/install/setup.bash ]
+# then
+#   echo "source /turtlebot3_ws/install/setup.bash" >> ~/.bashrc
+#   source /turtlebot3_ws/install/setup.bash
+#   echo "Sourced TurtleBot3 base workspace"
+# fi
+# if [ -f /overlay_ws/install/setup.bash ]
+# then
+#   echo "source /overlay_ws/install/setup.bash" >> ~/.bashrc
+#   source /overlay_ws/install/setup.bash
+#   echo "Sourced autonomy overlay workspace"
+# fi
 
-echo "Done."
-echo ""
-echo "Verifying file contents:"
-file $XAUTH
-echo "--> It should say \"X11 Xauthority data\"."
-echo ""
-echo "Permissions:"
-ls -FAlh $XAUTH
-echo ""
-echo "Running docker..."
+# # Set environment variables
+# export TURTLEBOT3_MODEL=waffle_pi
+# export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:$(ros2 pkg prefix tb3_worlds)/share/tb3_worlds/models
 
-ws=$PWD/workspace
-
-docker run -it \
-    --env="DISPLAY=$DISPLAY" \
-    --env="QT_X11_NO_MITSHM=1" \
-    --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
-    --mount type=bind,src=$ws,dst=/home/workspace,ro \
-    --env="XAUTHORITY=$XAUTH" \
-    --volume="$XAUTH:$XAUTH" \
-    --net=host \
-    --privileged \
-    osrf/ros:noetic-desktop-full \
-    bash
-
-echo "Done."
-
+# Execute the command passed into this entrypoint
+exec "$@

@@ -1,6 +1,6 @@
 FROM osrf/ros:noetic-desktop-full
 
-ENV DEBIAN_FRONTEND=noninteractive
+ARG DEBIAN_FRONTEND=noninteractive
 
 SHELL ["/bin/bash", "-c"]
 
@@ -23,7 +23,7 @@ ENV LANG=en_US.UTF-8 \
     LC_ALL=en_US.UTF-8
 
 ARG USERNAME
-
+USER $USERNAME
 ARG UUID
 ARG UGID
 
@@ -36,13 +36,7 @@ RUN useradd -m $USERNAME && \
     usermod --uid $UUID $USERNAME && \
     groupmod --gid $UGID $USERNAME
 
-COPY rootfs/ /
-
-USER $USERNAME
-
 RUN echo "export DISPLAY=\"`sed -n 's/nameserver //p' /etc/resolv.conf`:0\"" >> ~/.bashrc
 
 USER root
-
-
 
