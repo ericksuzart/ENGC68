@@ -1,4 +1,6 @@
+#!/bin/bash
 XAUTH=/tmp/.docker.xauth
+xhost +local:docker
 
 echo "Preparing Xauthority data..."
 xauth_list=$(xauth nlist :0 | tail -n 1 | sed -e 's/^..../ffff/')
@@ -12,25 +14,32 @@ if [ ! -f $XAUTH ]; then
 fi
 
 echo "Done."
-echo ""
-echo "Verifying file contents:"
-file $XAUTH
-echo "--> It should say \"X11 Xauthority data\"."
-echo ""
-echo "Permissions:"
-ls -FAlh $XAUTH
-echo ""
 echo "Running docker..."
 
-docker run -it \
+# Define Docker volumes and environment variables
+DOCKER_VOLUMES="
+    --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
+    --volume="$XAUTH:$XAUTH" \
+"
+
+DOCKER_ENV_VARS="
     --env="DISPLAY=$DISPLAY" \
     --env="QT_X11_NO_MITSHM=1" \
-    --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
     --env="XAUTHORITY=$XAUTH" \
-    --volume="$XAUTH:$XAUTH" \
+"
+
+DOCKER_CONFIG="
     --net=host \
-    osrf/ros:noetic-desktop-full \
+    --ipc=host \
+    --privileged \
+    --user=$USERNAME \
+"
+
+DOCKER_ARGS=${DOCKER_VOLUMES}" "${DOCKER_ENV_VARS}" "${DOCKER_CONFIG}
+
+docker run -it \
+    ${DOCKER_ARGS} \
+    topicos:atividade2 \
     bash
 
-echo "Done."
-
+echo "Finished."
