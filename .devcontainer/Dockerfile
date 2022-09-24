@@ -36,7 +36,8 @@ RUN sudo apt install -y \
         ros-noetic-husky-desktop \
         ros-noetic-husky-simulator \
         ros-noetic-gazebo-ros-pkgs \
-        ros-noetic-gazebo-ros-control
+        ros-noetic-gazebo-ros-control \
+        tree
 
 RUN mkdir -p /workspace/src && \
     cd /workspace/src && \
