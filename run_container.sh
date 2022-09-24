@@ -16,10 +16,13 @@ fi
 echo "Done."
 echo "Running docker..."
 
+BASEDIR=$(dirname $0)
+
 # Define Docker volumes and environment variables
 DOCKER_VOLUMES="
     --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
     --volume="$XAUTH:$XAUTH" \
+    --volume="${BASEDIR}/src":"/workspace/src/packages":rw \
 "
 
 DOCKER_ENV_VARS="
@@ -39,7 +42,7 @@ DOCKER_ARGS=${DOCKER_VOLUMES}" "${DOCKER_ENV_VARS}" "${DOCKER_CONFIG}
 
 docker run -it \
     ${DOCKER_ARGS} \
-    topicos:atividade2 \
+    ros1:topicos-atvd \
     bash
 
 echo "Finished."
