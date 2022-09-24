@@ -27,7 +27,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 
 <include file="$(find gazebo_ros)/launch/empty_world.launch">  </include>
 
-<param name="robot_description" command="$(find xacro)/xacro.py --inorder '$(find mybot_description)/urdf/mybot.urdf'" />
+<param name="robot_description" command="$(find xacro)/xacro '$(find mybot_description)/urdf/mybot.urdf'" />
 
 <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-file $(find mybot_description)/urdf/mybot.urdf -urdf -z 0 -model mybot" />
 
