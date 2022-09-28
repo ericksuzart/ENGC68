@@ -53,6 +53,7 @@ if __name__=="__main__":
   y = 0
   z = 0
   speed = 10.0
+  print(msg)
 
   while(1):  
     key = getKey()   
@@ -63,7 +64,7 @@ if __name__=="__main__":
       z = moveBindings[key][2]
 
     elif key in speedBindings.keys():
-      speed += speedBindings[key][0]
+      speed += speedBindings[key]
 
     else:
       x = 0
