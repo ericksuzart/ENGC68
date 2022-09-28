@@ -1,0 +1,5 @@
+<launch>
+	
+	<node pkg="omnirobot" type="vel_Publisher.py" name="vel_Publisher" output="screen" />
+
+</launch>
