@@ -23,7 +23,7 @@ DOCKER_VOLUMES="
     --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
     --volume="$XAUTH:$XAUTH" \
     --volume="/workspace" \
-    --volume="${BASEDIR}/src":"/workspace/src/packages":rw \
+    --volume="${BASEDIR}/src":"/workspace/src":rw \
 "
 
 DOCKER_ENV_VARS="
