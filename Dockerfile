@@ -40,13 +40,15 @@ RUN sudo apt install -y \
         ros*controller* \
         tree
 
+# Modify the gazebo kill timeout
+RUN sed -i 's/DEFAULT_TIMEOUT_SIGTERM = 2.0 #seconds/DEFAULT_TIMEOUT_SIGTERM = 1.0 #seconds/g' /opt/ros/noetic/lib/python3/dist-packages/roslaunch/nodeprocess.py && \
+    sed -i 's/DEFAULT_TIMEOUT_SIGINT  = 15.0 #seconds/DEFAULT_TIMEOUT_SIGINT  = 1.0 #seconds/g' /opt/ros/noetic/lib/python3/dist-packages/roslaunch/nodeprocess.py
+
 RUN mkdir -p /workspace/src
 
-COPY src/packages /workspace/src
+COPY src /workspace/src
 
-RUN cd /workspace/src && \
-    git clone -b noetic https://github.com/ericksuzart/lar_gazebo.git && \
-    source /opt/ros/noetic/setup.bash && \
+RUN source /opt/ros/noetic/setup.bash && \
     cd /workspace && \
     catkin build
 
