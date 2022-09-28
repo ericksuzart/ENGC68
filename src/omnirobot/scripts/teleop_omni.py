@@ -30,16 +30,16 @@ moveBindings = {
   'm':(-1,1,0),  
 }
 
-speedBindings={
+speedBindings = {
   'q':(1),
   'z':(-1),
 }
 
 def getKey():
-    tty.setraw(sys.stdin.fileno())
-    key = sys.stdin.read(1)
-    termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
-    return key
+  tty.setraw(sys.stdin.fileno())
+  key = sys.stdin.read(1)
+  termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
+  return key
 
 if __name__=="__main__":
   settings = termios.tcgetattr(sys.stdin)
@@ -53,17 +53,17 @@ if __name__=="__main__":
   y = 0
   z = 0
   speed = 10.0
-  print(msg)
-  
+
   while(1):  
-    key = getKey()       
+    key = getKey()   
+
     if key in moveBindings.keys():
       x = moveBindings[key][0]
       y = moveBindings[key][1]
       z = moveBindings[key][2]
+
     elif key in speedBindings.keys():
       speed += speedBindings[key][0]
-      print(speed)
 
     else:
       x = 0
