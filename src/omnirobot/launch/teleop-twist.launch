@@ -1,5 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <launch>
-	
-	<node pkg="omnirobot" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard" output="screen">
-	</node>
+
+  <node pkg="omnirobot"
+        type="teleop_twist_keyboard.py"
+        name="teleop_twist_keyboard"
+        output="screen"/>
+
 </launch>
