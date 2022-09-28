@@ -35,18 +35,27 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y keyboard-configuration && 
 RUN sudo apt install -y \
         ros-noetic-husky-desktop \
         ros-noetic-husky-simulator \
-        ros-noetic-gazebo-ros-pkgs \
-        ros-noetic-gazebo-ros-control \
+        ros-noetic-gazebo-* \
+        ros-noetic-desktop-full \
+        ros*controller* \
         tree
 
-RUN mkdir -p /workspace/src && \
-    cd /workspace/src && \
+RUN mkdir -p /workspace/src
+
+COPY src/packages /workspace/src
+
+RUN cd /workspace/src && \
     git clone -b noetic https://github.com/ericksuzart/lar_gazebo.git && \
     source /opt/ros/noetic/setup.bash && \
     cd /workspace && \
     catkin build
 
 WORKDIR /workspace
+
+# nvidia-docker hooks
+LABEL com.nvidia.volumes.needed="nvidia_driver"
+ENV PATH /usr/local/nvidia/bin:${PATH}
+ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
 
 COPY entrypoint.sh /
 ENTRYPOINT [ "/entrypoint.sh" ]
