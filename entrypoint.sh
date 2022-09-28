@@ -2,8 +2,8 @@
 # Basic entrypoint for ROS / Colcon Docker containers
 
 # Source ROS and Colcon workspaces.
-source /ros_entrypoint.sh
-echo "Sourced ROS1 Noetic"
+source /opt/ros/$ROS_DISTRO/setup.bash
+echo "Sourced ROS $ROS_DISTRO workspace."
 
 if [ -f /workspace/devel/setup.bash ]
 then
