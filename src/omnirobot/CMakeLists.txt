@@ -30,7 +30,6 @@ catkin_package(
 catkin_install_python(
   PROGRAMS
     scripts/teleop_omni.py
-    scripts/teleop_twist_keyboard.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
