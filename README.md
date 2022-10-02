@@ -21,3 +21,7 @@ To run the image, go to the workspace folder and run the following script:
 ```
 
 This will run the image and mount the source directory as a volume in the container. This means that any changes made to the files in the source directory will be reflected in the container.  
+
+## Using the packages
+
+If you don't want to work with docker an alternative is to download the packages inside the workspace folder and use them at your own workspace. The workspaces are configured as follows inside the docker image: IBVS_ws is set up to ubuntu 18.04 and ROS melodic while the omnirobot_ws is set up to ubuntu 20.04 and ROS noetic.

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from cmath import sqrt
 from std_msgs.msg import Float64
 import sys, select, termios, tty
 import rospy
@@ -18,14 +19,15 @@ anything else : stop
 
 CTRL-C to quit
 """
-
+a = sqrt(3).real/3
+# v_0, v_1, v_2 are the velocities of the three wheels
 moveBindings = {
-  'i':(1,0,0),
+  'i':(-a, 0,a),
   'o':(1,-1,0),
-  'j':(1,1,1),
-  'l':(-1,-1,-1),
+  'j':(-1/3,2/3,-1/3),
+  'l':(1/3,-2/3,1/3),
   'u':(-1,0,1),
-  ',':(-1,0,0),
+  ',':(a, 0,-a),
   '.':(1,0,-1),
   'm':(-1,1,0),  
 }
@@ -52,19 +54,19 @@ if __name__=="__main__":
   x = 0
   y = 0
   z = 0
-  speed = 10.0
+  speed = float(10.0)
   print(msg)
 
   while(1):  
     key = getKey()   
 
     if key in moveBindings.keys():
-      x = moveBindings[key][0]
-      y = moveBindings[key][1]
-      z = moveBindings[key][2]
+      x = float(moveBindings[key][0])
+      y = float(moveBindings[key][1])
+      z = float(moveBindings[key][2])
 
     elif key in speedBindings.keys():
-      speed += speedBindings[key]
+      speed += float(speedBindings[key])
 
     else:
       x = 0
@@ -74,13 +76,9 @@ if __name__=="__main__":
     if (key == '\x03'):
       break  
 
-    vel = Float64()
-    vel1 = Float64()
-    vel2 = Float64()
-  
-    vel = x * speed
-    vel1 = y * speed
-    vel2 = z * speed
+    vel = float(x * speed)
+    vel1 = float(y * speed)
+    vel2 = float(z * speed)
 
     pub.publish(vel)
     pub1.publish(vel1)

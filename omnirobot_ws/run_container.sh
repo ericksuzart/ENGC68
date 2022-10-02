@@ -16,7 +16,7 @@ fi
 echo "Done."
 echo "Running docker..."
 
-BASEDIR=$(dirname $0)
+BASEDIR=$(pwd -P)
 
 # Define Docker volumes and environment variables
 DOCKER_VOLUMES="
