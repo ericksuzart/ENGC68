@@ -43,7 +43,7 @@ DOCKER_ARGS=${DOCKER_VOLUMES}" "${DOCKER_ENV_VARS}" "${DOCKER_CONFIG}
 
 docker run -it \
     ${DOCKER_ARGS} \
-    ros1:topicos-IBVS \
+    ros1:ENGC68-IBVS_ws \
     bash
 
 echo "Finished."
