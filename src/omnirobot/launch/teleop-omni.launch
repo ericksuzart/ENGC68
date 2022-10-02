@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<launch>
-
-  <node pkg="omnirobot"
-        type="teleop_omni.py"
-        name="teleop_omni_keyboard"
-        output="screen"/>
-
-</launch>
