@@ -16,7 +16,8 @@ RUN apt update && \
         locales \
         software-properties-common \
         locate \
-        apt-utils
+        apt-utils \
+        tree
 
 # install catkin tools package
 RUN sudo sh \
@@ -38,8 +39,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt install -y \
         ros-$ROS_DISTRO-gazebo-* \
         ros-$ROS_DISTRO-desktop-full \
-        ros*controller* \
-        tree
+        ros*controller* 
 
 # Modify the roslaunch kill timeout
 RUN sed -i 's/DEFAULT_TIMEOUT_SIGTERM = 2.0 #seconds/DEFAULT_TIMEOUT_SIGTERM = 1.0 #seconds/g' /opt/ros/melodic/lib/python2.7/dist-packages/roslaunch/nodeprocess.py && \
