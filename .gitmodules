@@ -2,3 +2,5 @@
 	url = https://github.com/ros-industrial/universal_robot
 [submodule "ATVD-3_ws/src/husky"]
 	url = https://github.com/husky/husky
+[submodule "ATVD-3_ws/src/lar_gazebo"]
+	url = https://github.com/ericksuzart/lar_gazebo
