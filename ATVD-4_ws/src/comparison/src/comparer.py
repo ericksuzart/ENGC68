@@ -8,7 +8,8 @@ from tf.transformations import euler_from_quaternion, quaternion_from_euler
 from math import cos,sin
 from gazebo_msgs.srv import GetModelState
 
-def talker():
+def comparer():
+    pub = rospy.Publisher('chatter', String)
     pub_gt = rospy.Publisher('/gt', Point, queue_size=10)
     rospy.init_node('comparer', anonymous=True)
     while not rospy.is_shutdown():
@@ -25,9 +26,15 @@ def talker():
             return
         x_gt = state.pose.position.x
         y_gt = state.pose.position.y 
-        yaw_gt = state.pose.orientation
+        yaw_gt = get_rotation(state.pose.orientation)
         theta_gt = yaw_gt 
-        pub_gt.publish(Point(x_gt, y_gt, y_gt))
+        pub_gt.publish(Point(x_gt, y_gt, yaw_gt))
  
+def get_rotation (msg):
+    orientation_q = msg
+    orientation_list = [orientation_q.x, orientation_q.y, orientation_q.z, orientation_q.w]
+    (roll, pitch, yaw) = euler_from_quaternion (orientation_list)
+    return yaw
+
 if __name__ == '__main__':
-    talker()
+    comparer()
