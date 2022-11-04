@@ -16,4 +16,5 @@ No nível dessa pasta, rode
 
 ## Rodar script em python
 
+    source devel/setup.bash
     rosrun comparison comparer.py
