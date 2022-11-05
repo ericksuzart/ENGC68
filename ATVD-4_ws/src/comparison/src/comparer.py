@@ -8,15 +8,25 @@ from tf.transformations import euler_from_quaternion, quaternion_from_euler
 from math import cos,sin
 from gazebo_msgs.srv import GetModelState
 
+
+def update_filtered_odometry(msg):
+    str = "hello world %s"%msg.pose.pose.position.x
+    rospy.loginfo(str)
+    rospy.sleep(0.1)
+    return
+
+def update_odometry(msg):
+    str = "hello world2 %s"%msg.pose.pose.position.x
+    rospy.loginfo(str)
+    rospy.sleep(0.1)
+    return
+
 def comparer():
-    pub = rospy.Publisher('chatter', String)
     pub_gt = rospy.Publisher('/gt', Point, queue_size=10)
     rospy.init_node('comparer', anonymous=True)
+    rospy.Subscriber("/odometry/filtered", Odometry, update_filtered_odometry)
+    rospy.Subscriber("/husky_velocity_controller/odom", Odometry, update_odometry)
     while not rospy.is_shutdown():
-        str = "hello world %s"%rospy.get_time()
-        rospy.loginfo(str)
-        pub.publish(str)
-        rospy.sleep(0.1)
         g_get_state = rospy.ServiceProxy("/gazebo/get_model_state", GetModelState)
         rospy.wait_for_service("/gazebo/get_model_state")
         try:
@@ -29,6 +39,9 @@ def comparer():
         yaw_gt = get_rotation(state.pose.orientation)
         theta_gt = yaw_gt 
         pub_gt.publish(Point(x_gt, y_gt, yaw_gt))
+        str = "hello world3 %s"%x_gt
+        rospy.loginfo(str)
+        rospy.sleep(0.1)
  
 def get_rotation (msg):
     orientation_q = msg
