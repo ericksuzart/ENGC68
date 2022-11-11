@@ -112,7 +112,10 @@
         </geometry>
         <surface>
           <friction>
-            <ode/>
+            <ode>
+              <mu>1</mu>
+              <mu2>2</mu2>
+            </ode>
           </friction>
           <bounce/>
           <contact>
@@ -130,7 +133,10 @@
         </geometry>
         <surface>
           <friction>
-            <ode/>
+            <ode>
+              <mu>3</mu>
+              <mu2>4</mu2>
+            </ode>
           </friction>
           <bounce/>
           <contact>
