@@ -1,0 +1,8 @@
+prefix=/home/and/Github/ENGC68/ATVD-3_ws/install
+
+Name: lar_gazebo
+Description: Description of lar_gazebo
+Version: 1.1.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: roscpp gazebo_ros
