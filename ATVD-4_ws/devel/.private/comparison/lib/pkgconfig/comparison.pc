@@ -1,0 +1,8 @@
+prefix=/home/and/Github/ENGC68/ATVD-4_ws/devel/.private/comparison
+
+Name: comparison
+Description: Description of comparison
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

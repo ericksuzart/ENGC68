@@ -1,0 +1,1 @@
+/home/and/Github/ENGC68/ATVD-4_ws/devel/.private/comparison/lib/pkgconfig/comparison.pc
