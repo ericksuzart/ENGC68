@@ -1,0 +1,1 @@
+/home/and/Github/ENGC68/ATVD-5_ws/devel/.private/catkin_tools_prebuild/local_setup.bash
