@@ -19,44 +19,58 @@ class Stabilizer(object):
         x_gt, y_gt, yaw_gt = self.get_ground_truth()
         dx, dy, ro, alpha, beta = self.calc_var_change(x_gt, y_gt, yaw_gt)
         vx, vy, gamma = self.calc_twist_values(ro, alpha, beta, yaw_gt)
-        move = self.generate_movement(vx, vy, gamma, dx, dy)
-        self.pub_move.publish(move)
+        self.move(vx, vy, gamma, dx, dy, yaw_gt)
 
     def calc_var_change(self, x_gt, y_gt, yaw_gt):
         dx = x_goal - x_gt
         dy = y_goal - y_gt
+        theta = atan(dy/dx)
+        yaw_goal = theta - yaw_gt
         ro = sqrt((dx**2) + (dy**2))
-        alpha = atan(dy/dx) - yaw_gt
+
+        alpha = yaw_goal
+        if(alpha > pi/2):
+            alpha -= pi
+        elif(alpha < -pi/2):
+            alpha += pi
+
         beta = -atan(dy/dx)
+
         return (dx, dy, ro, alpha, beta)
 
     def calc_twist_values(self, ro, alpha, beta, yaw):
-        kp = 15
-        ka = 50
-        kb = -5
+        kp = 0.5
+        ka = 1
+        kb = 1
         velocity = kp * ro
-        vx = velocity * cos(yaw)
-        vy = velocity * sin(yaw)
-        gamma = (ka * alpha) + (kb * beta)
+        vx = velocity * cos(alpha)
+        vy = velocity * sin(alpha)
+        #gamma = (ka * alpha) - (kb * beta)
+        gamma = 10 * alpha
+        rospy.loginfo(str(alpha) + " " + str(beta))
         return (vx, vy, gamma)
 
-    def generate_movement(self, vx, vy, gamma, dx, dy):
+    def move(self, vx, vy, gamma, dx, dy, yaw):
         movement = Twist()
         movement.linear.x = vx
-        if dx * vx < 0: movement.linear.x *= -1
+        if dx * cos(yaw) < 0: movement.linear.x *= -1
         movement.linear.y = vy
-        if dy * vy < 0: movement.linear.y *= -1
+        if dy * sin(yaw) > 0: movement.linear.y *= -1
         movement.linear.z = 0
         movement.angular.x = 0
         movement.angular.y = 0
         movement.angular.z = gamma
-        if(abs(dy) < 0.1 and abs(dx) < 0.1):
+        self.pub_move.publish(movement)
+        log_str = "vx = " + str(vx) + " vy = " + str(vy) + " th = " + str(yaw) + " gamma = " + str(gamma)
+        rospy.loginfo(log_str)
+        if(abs(dy) < 0.2 and abs(dx) < 0.2):
             movement.linear.x = 0
             movement.linear.y = 0
             movement.angular.z = 0
+            self.pub_move.publish(movement)
             rospy.loginfo("Chegou à posição")
             rospy.signal_shutdown("Chegou à posição")
-        return movement
+        return
 
     def get_ground_truth(self):
         g_get_state = rospy.ServiceProxy("/gazebo/get_model_state", GetModelState)
