@@ -17,18 +17,30 @@ class Stabilizer(object):
     
     def point_stabilizer_move(self, msg):
         x_gt, y_gt, yaw_gt = self.get_ground_truth()
+        dx, dy, ro, alpha, beta = self.calc_var_change(x_gt, y_gt, yaw_gt)
+        vx, vy, gamma = self.calc_twist_values(ro, alpha, beta, yaw_gt)
+        move = self.generate_movement(vx, vy, gamma, dx, dy)
+        self.pub_move.publish(move)
+
+    def calc_var_change(self, x_gt, y_gt, yaw_gt):
         dx = x_goal - x_gt
         dy = y_goal - y_gt
         ro = sqrt((dx**2) + (dy**2))
         alpha = atan(dy/dx) - yaw_gt
         beta = -atan(dy/dx)
-        kp = 1.2
-        ka = 4.5
-        kb = -0.6
+        return (dx, dy, ro, alpha, beta)
+
+    def calc_twist_values(self, ro, alpha, beta, yaw):
+        kp = 15
+        ka = 50
+        kb = -5
         velocity = kp * ro
-        vx = velocity * cos(yaw_gt) * 100 * abs(dx)
-        vy = velocity * sin(yaw_gt) * 100 * abs(dy)
+        vx = velocity * cos(yaw)
+        vy = velocity * sin(yaw)
         gamma = (ka * alpha) + (kb * beta)
+        return (vx, vy, gamma)
+
+    def generate_movement(self, vx, vy, gamma, dx, dy):
         movement = Twist()
         movement.linear.x = vx
         if dx * vx < 0: movement.linear.x *= -1
@@ -43,8 +55,8 @@ class Stabilizer(object):
             movement.linear.y = 0
             movement.angular.z = 0
             rospy.loginfo("Chegou à posição")
-
-        self.pub_move.publish(movement)
+            rospy.signal_shutdown("Chegou à posição")
+        return movement
 
     def get_ground_truth(self):
         g_get_state = rospy.ServiceProxy("/gazebo/get_model_state", GetModelState)
