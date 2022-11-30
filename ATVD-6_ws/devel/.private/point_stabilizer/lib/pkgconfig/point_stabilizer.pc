@@ -1,0 +1,8 @@
+prefix=/home/and/Github/ENGC68/ATVD-6_ws/devel/.private/point_stabilizer
+
+Name: point_stabilizer
+Description: Description of point_stabilizer
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

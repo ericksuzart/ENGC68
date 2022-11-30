@@ -1,0 +1,1 @@
+/home/and/Github/ENGC68/ATVD-6_ws/devel/.private/lar_gazebo/lib/pkgconfig/lar_gazebo.pc
