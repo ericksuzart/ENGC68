@@ -5,7 +5,6 @@
   <arg name="world_name" default="$(find lar_gazebo)/worlds/lar.world" doc="Default world"/>-->
   <arg name="paused" default="true" doc="Starts gazebo in paused mode" />
   <arg name="gui" default="true" doc="Starts gazebo gui" />
-  <arg name="scan_topic" default="front/scan" />
 
   <!-- include gazebo_ros launcher -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -19,28 +18,17 @@
 
   <include file="$(find husky_gazebo)/launch/spawn_husky.launch">
     <!-- Optionally configure the spawn position -->
-    <arg name="x" value="-4"/>
+    <arg name="x" value="0"/>
     <arg name="y" value="0"/>
     <arg name="z" value="0"/>
-    <arg name="yaw" value="0"/>
   </include>
 
-  <node name="map_server" pkg="map_server" type="map_server" args="$(find lar_gazebo)/map/lar_map.yaml" output="screen" respawn="true">
-    <param name="frame_id" value="map"/>
-  </node>
-
-  <include file="$(find husky_navigation)/launch/gmapping.launch">
-    <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
-        <remap from="scan" to="$(arg scan_topic)"/>
-    </node>
+  <arg name="map_file" default="$(find lar_gazebo)/map/lar_map.yaml"/>
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" respawn="true" />
+  
+  <include file="$(find lar_gazebo)/launch/amcl_custom.launch">
   </include>
   
-  <include file="$(find husky_navigation)/launch/amcl.launch">
-    <node pkg="amcl" type="amcl" name="amcl" output="screen">
-        <param name="set_initial_pose" value="true"/>
-        <param name="initial_pose" value="{x: -4.0, y: 0.0, z: 0.0, yaw: 0.0}"/>
-        <param name="use_map_topic" value="true"/>
-        <param name="map_topic" value="map"/>
-    </node>
+  <include file="$(find husky_viz)/launch/view_robot.launch">
   </include>
 </launch>

@@ -6,7 +6,7 @@ from gazebo_msgs.srv import GetModelState
 
 class AMCL_Comparer(object):
     def __init__(self):
-        self.pub_diff = rospy.Publisher('/amcl_gt_diff', Twist, queue_size = 15)
+        self.pub_diff = rospy.Publisher('/amcl_gt_diff', Pose2D, queue_size = 15)
         rospy.Subscriber("/amcl_pose", PoseWithCovarianceStamped, self.compare)
     
     def compare(self, msg):
@@ -18,6 +18,10 @@ class AMCL_Comparer(object):
         diff_y = y_gt - y_amcl
         diff_yaw = yaw_gt - yaw_amcl
         self.pub_diff.publish(Pose2D(diff_x, diff_y, diff_yaw))
+        log_str = "diff_x = " + str(diff_x)
+        log_str = log_str + " diff_y = " + str(diff_y)
+        log_str = log_str + " diff_yaw = " + str(diff_yaw) + "\n"
+        rospy.loginfo(log_str)
         return
 
     def get_ground_truth(self):
