@@ -1,21 +1,21 @@
 Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
 Change Dir: /home/and/Github/ENGC68/ATVD-6_ws/build/catkin_tools_prebuild/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/make cmTC_17ab3/fast && /usr/bin/make -f CMakeFiles/cmTC_17ab3.dir/build.make CMakeFiles/cmTC_17ab3.dir/build
+Run Build Command(s):/usr/bin/make cmTC_11691/fast && /usr/bin/make -f CMakeFiles/cmTC_11691.dir/build.make CMakeFiles/cmTC_11691.dir/build
 make[1]: Entrando no diretório '/home/and/Github/ENGC68/ATVD-6_ws/build/catkin_tools_prebuild/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_17ab3.dir/src.c.o
-/usr/bin/cc   -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_17ab3.dir/src.c.o   -c /home/and/Github/ENGC68/ATVD-6_ws/build/catkin_tools_prebuild/CMakeFiles/CMakeTmp/src.c
-Linking C executable cmTC_17ab3
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_17ab3.dir/link.txt --verbose=1
-/usr/bin/cc  -DCMAKE_HAVE_LIBC_PTHREAD    -rdynamic CMakeFiles/cmTC_17ab3.dir/src.c.o  -o cmTC_17ab3 
-/usr/bin/ld: CMakeFiles/cmTC_17ab3.dir/src.c.o: na função "main":
+Building C object CMakeFiles/cmTC_11691.dir/src.c.o
+/usr/bin/cc   -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_11691.dir/src.c.o   -c /home/and/Github/ENGC68/ATVD-6_ws/build/catkin_tools_prebuild/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_11691
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_11691.dir/link.txt --verbose=1
+/usr/bin/cc  -DCMAKE_HAVE_LIBC_PTHREAD    -rdynamic CMakeFiles/cmTC_11691.dir/src.c.o  -o cmTC_11691 
+/usr/bin/ld: CMakeFiles/cmTC_11691.dir/src.c.o: na função "main":
 src.c:(.text+0x46): referência não definida para "pthread_create"
 /usr/bin/ld: src.c:(.text+0x52): referência não definida para "pthread_detach"
 /usr/bin/ld: src.c:(.text+0x63): referência não definida para "pthread_join"
 collect2: error: ld returned 1 exit status
-make[1]: *** [CMakeFiles/cmTC_17ab3.dir/build.make:87: cmTC_17ab3] Erro 1
+make[1]: *** [CMakeFiles/cmTC_11691.dir/build.make:87: cmTC_11691] Erro 1
 make[1]: Saindo do diretório '/home/and/Github/ENGC68/ATVD-6_ws/build/catkin_tools_prebuild/CMakeFiles/CMakeTmp'
-make: *** [Makefile:121: cmTC_17ab3/fast] Erro 2
+make: *** [Makefile:121: cmTC_11691/fast] Erro 2
 
 
 Source file was:
@@ -41,18 +41,18 @@ int main(void)
 Determining if the function pthread_create exists in the pthreads failed with the following output:
 Change Dir: /home/and/Github/ENGC68/ATVD-6_ws/build/catkin_tools_prebuild/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/make cmTC_4aa24/fast && /usr/bin/make -f CMakeFiles/cmTC_4aa24.dir/build.make CMakeFiles/cmTC_4aa24.dir/build
+Run Build Command(s):/usr/bin/make cmTC_3d871/fast && /usr/bin/make -f CMakeFiles/cmTC_3d871.dir/build.make CMakeFiles/cmTC_3d871.dir/build
 make[1]: Entrando no diretório '/home/and/Github/ENGC68/ATVD-6_ws/build/catkin_tools_prebuild/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_4aa24.dir/CheckFunctionExists.c.o
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_4aa24.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.16/Modules/CheckFunctionExists.c
-Linking C executable cmTC_4aa24
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4aa24.dir/link.txt --verbose=1
-/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_4aa24.dir/CheckFunctionExists.c.o  -o cmTC_4aa24  -lpthreads 
+Building C object CMakeFiles/cmTC_3d871.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_3d871.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.16/Modules/CheckFunctionExists.c
+Linking C executable cmTC_3d871
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3d871.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_3d871.dir/CheckFunctionExists.c.o  -o cmTC_3d871  -lpthreads 
 /usr/bin/ld: não foi possível localizar -lpthreads
 collect2: error: ld returned 1 exit status
-make[1]: *** [CMakeFiles/cmTC_4aa24.dir/build.make:87: cmTC_4aa24] Erro 1
+make[1]: *** [CMakeFiles/cmTC_3d871.dir/build.make:87: cmTC_3d871] Erro 1
 make[1]: Saindo do diretório '/home/and/Github/ENGC68/ATVD-6_ws/build/catkin_tools_prebuild/CMakeFiles/CMakeTmp'
-make: *** [Makefile:121: cmTC_4aa24/fast] Erro 2
+make: *** [Makefile:121: cmTC_3d871/fast] Erro 2
 
 
 
