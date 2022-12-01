@@ -18,7 +18,7 @@
 
   <include file="$(find husky_gazebo)/launch/spawn_husky.launch">
     <!-- Optionally configure the spawn position -->
-    <arg name="x" value="0"/>
+    <arg name="x" value="-4"/>
     <arg name="y" value="0"/>
     <arg name="z" value="0"/>
   </include>
