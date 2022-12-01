@@ -1,0 +1,8 @@
+prefix=/home/and/Github/ENGC68/ATVD-7_ws/install
+
+Name: amcl_comparer
+Description: Description of amcl_comparer
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

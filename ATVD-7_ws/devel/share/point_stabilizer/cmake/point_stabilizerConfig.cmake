@@ -1,0 +1,1 @@
+/home/and/Github/ENGC68/ATVD-7_ws/devel/.private/point_stabilizer/share/point_stabilizer/cmake/point_stabilizerConfig.cmake
