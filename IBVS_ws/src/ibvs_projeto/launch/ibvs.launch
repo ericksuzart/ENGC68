@@ -4,9 +4,12 @@
 	<include file="$(find ur_gazebo)/launch/ur5.launch">
 	</include>
 	
-	<include file="$(find realsense_gazebo_plugin)/launch/realsense_urdf.launch">
-	</include>
+	<!--<include file="$(find realsense_gazebo_plugin)/launch/realsense_urdf.launch">
+	</include>-->
 	
+	<include file="$(find ibvs_projeto)/launch/spawn_apriltag.launch">
+	</include>
+
 	<include file="$(find apriltag_ros)/launch/continuous_detection.launch">
 	</include>
 </launch>
