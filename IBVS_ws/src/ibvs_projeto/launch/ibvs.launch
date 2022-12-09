@@ -11,7 +11,7 @@
 		<arg name="sim" value="true"/>
 	</include>
 
-	<include file="$(find ur5_moveit_config)/launch/moveit_rviz.launch">
+	<include file="$(find ibvs_projeto)/launch/rviz_ibvs.launch">
 		<arg name="config" value="true"/>
 	</include>
 </launch>
