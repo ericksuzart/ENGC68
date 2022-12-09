@@ -1,5 +1,9 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro">
+  <!-- Realsense params -->
+  <xacro:arg name="use_nominal_extrinsics" default="false"/>
+  <xacro:arg name="add_plug" default="true" />
+  <xacro:arg name="use_mesh" default="true" />
 
   <xacro:include filename="$(find ur_description)/urdf/ur.transmission.xacro" />
   <xacro:include filename="$(find ur_description)/urdf/ur.gazebo.xacro" />
@@ -301,25 +305,6 @@
       </xacro:cylinder_inertial>
     </link>
 
-    <!-- <joint name="${prefix}camera_joint" type="fixed">
-      <parent link="${prefix}wrist_2_link" />
-      <child link = "${prefix}camera_link" />
-      <origin xyz="0 0 0.1" rpy="0.0 0.0 0.0" />
-    </joint>
-
-    <link name="${prefix}camera_link">
-      <origin xyz="0 0 0.1" rpy="0 0 1.57079" />
-    </link> -->
-
-    <!-- Import macro for realsense-RS200 camera-->
-    <xacro:include filename="$(find realsense_gazebo_plugin)/urdf/realsense-RS200.macro.xacro"/>
-    <!-- link for realsense camera -->
-    <!-- Create camera instance -->
-    <xacro:realsense-rs200 prefix="" parent="${prefix}wrist_2_link">
-        <origin xyz="0 0 0.142" rpy="0 0 1.57079" />
-        <!-- -0.046225 -0.020059 -0.007845 -->
-    </xacro:realsense-rs200>
-
     <joint name="${prefix}wrist_3_joint" type="revolute">
       <parent link="${prefix}wrist_2_link" />
       <child link = "${prefix}wrist_3_link" />
@@ -396,6 +381,23 @@
       <parent link="${prefix}wrist_3_link"/>
       <child link="${prefix}tool0"/>
     </joint>
+
+    <link name="${prefix}camera_link"/>
+    <xacro:property name="camera_height" value="0.13" />
+    <xacro:property name="camera_rotation" value="${pi/2.0}" />
+
+    <joint name="${prefix}camera_fixed_joint" type="fixed">
+      <origin xyz="0.0 0.0 ${camera_height}" rpy="0.0 0.0 ${camera_rotation}" />
+      <axis xyz="0 1 0" />
+      <parent link="${prefix}wrist_2_link"/>
+      <child link="${prefix}camera_link"/>
+    </joint>
+
+    <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
+
+    <xacro:sensor_d435 name="${prefix}realsense" topics_ns="${prefix}realsense" parent="${prefix}camera_link" publish_pointcloud="true">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+    </xacro:sensor_d435>
 
   </xacro:macro>
 </robot>

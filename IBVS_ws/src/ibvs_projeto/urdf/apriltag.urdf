@@ -18,7 +18,7 @@
             <origin rpy="0.0 0 0" xyz="0 0 0"/>
             <geometry>
                 <!--<box size="0.8 0.8 0.2"/>-->
-                <mesh filename="package://lar_gazebo/urdf/tag0.dae"/>
+                <mesh filename="package://ibvs_projeto/urdf/tag0.dae"/>
             </geometry>
         </visual>
     </link>

@@ -9,10 +9,10 @@
     <arg name="pitch" default="0"/>
     <arg name="yaw" default="0" />
     
-    <arg name="urdf_robot_file" value="$(find lar_gazebo)/urdf/apriltag.urdf" />
+    <arg name="urdf_robot_file" value="$(find ibvs_projeto)/urdf/apriltag.urdf" />
     <arg name="robot_name" value="april_tag" />
     
-    <include file="$(find lar_gazebo)/launch/spawn_robot_urdf.launch">
+    <include file="$(find ibvs_projeto)/launch/spawn_robot_urdf.launch">
         <arg name="x" value="$(arg x)" />
         <arg name="y" value="$(arg y)" />
         <arg name="z" value="$(arg z)" />
