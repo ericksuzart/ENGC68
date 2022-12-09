@@ -25,9 +25,8 @@ class IBVS_Controller(object):
             moveit_msgs.msg.DisplayTrajectory,
             queue_size=20,
         )
-        self.robot_planning(0.1, 0.1, 0.2, 0.1, 0, 0, 0)
         #self.pub_move = rospy.Publisher('/husky_velocity_controller/cmd_vel', Twist, queue_size = 15)
-        #rospy.Subscriber("/tag_detections", AprilTagDetectionArray, self.ibvs_calc)
+        rospy.Subscriber("/tag_detections", AprilTagDetectionArray, self.ibvs_calc)
         #rospy.Subscriber("/tag_detections_image", Image, self.image_proc)
     
     def ibvs_calc(self, msg):
@@ -59,7 +58,8 @@ class IBVS_Controller(object):
         jacob = np.concatenate((jacob_20, jacob_36, jacob_52), axis=0)
         jacob_inv = np.linalg.inv(jacob)
 
-        lambda_ = 0.7
+        lambda_ = 0.05
+        dt = 0.5
 
         goal = np.array([-0.0966414748963234 - x_20_calc,
                         0.17414187520082974 - y_20_calc,
@@ -69,12 +69,15 @@ class IBVS_Controller(object):
                         -0.13859814091486256 - y_52_calc])
 
         v = lambda_ * np.matmul(jacob_inv, goal)
-        print(v)
-        return
+
+        movement = v*dt
+
+        self.robot_planning(movement[0], movement[1], movement[2], 1.0,
+                            movement[3], movement[4], movement[5])
 
     def robot_planning(self, x_pose, y_pose, z_pose, w_orient, x_orient, y_orient, z_orient):
         pose_goal = Pose()
-        pose_goal.orientation.w = 1.0
+        pose_goal.orientation.w = w_orient
         #pose_goal.orientation.x = x_orient
         #pose_goal.orientation.y = y_orient
         #pose_goal.orientation.z = z_orient
@@ -83,7 +86,8 @@ class IBVS_Controller(object):
         pose_goal.position.z = z_pose
 
         self.move_group.set_pose_target(pose_goal)
-        #success = self.move_group.plan()
+        for i in range(5):
+            self.move_group.plan()
         success = self.move_group.go(wait=True)
         # Calling `stop()` ensures that there is no residual movement
         self.move_group.stop()
