@@ -383,7 +383,7 @@
     </joint>
 
     <link name="${prefix}camera_link"/>
-    <xacro:property name="camera_height" value="0.12" />
+    <xacro:property name="camera_height" value="0.13" />
     <xacro:property name="camera_rotation" value="${pi/2.0}" />
 
     <joint name="${prefix}camera_fixed_joint" type="fixed">
