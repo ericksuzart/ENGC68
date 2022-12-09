@@ -45,6 +45,12 @@ RUN apt install -y \
 RUN sed -i 's/DEFAULT_TIMEOUT_SIGTERM = 2.0 #seconds/DEFAULT_TIMEOUT_SIGTERM = 1.0 #seconds/g' /opt/ros/melodic/lib/python2.7/dist-packages/roslaunch/nodeprocess.py && \
     sed -i 's/DEFAULT_TIMEOUT_SIGINT  = 15.0 #seconds/DEFAULT_TIMEOUT_SIGINT  = 1.0 #seconds/g' /opt/ros/melodic/lib/python2.7/dist-packages/roslaunch/nodeprocess.py
 
+# install gpu driver
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y keyboard-configuration && \
+    add-apt-repository ppa:kelebek333/nvidia-legacy && \
+    apt install -y \
+        nvidia-340 
+
 RUN mkdir -p /workspace/src
 
 COPY src /workspace/src
@@ -64,11 +70,17 @@ ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_P
 
 # ENV GAZEBO_MODEL_PATH /usr/share/gazebo-7/media/models:/opt/ros/kinetic/share/gazebo_plugins/Media/models:/usr/share/gazebo-7/media/models
 
-# install gpu driver
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y keyboard-configuration && \
-    add-apt-repository ppa:kelebek333/nvidia-legacy && \
+# visual servoning packages
+RUN apt install -y \
+        ros-melodic-visp* && \
+    add-apt-repository ppa:sdurobotics/ur-rtde && \
+    apt update && \
     apt install -y \
-        nvidia-340 
+        librtde \
+        librtde-dev \
+        libboost-system-dev \
+        libboost-thread-dev \
+        libboost-program-options-dev
 
 COPY entrypoint.sh /
 ENTRYPOINT [ "/entrypoint.sh" ]
