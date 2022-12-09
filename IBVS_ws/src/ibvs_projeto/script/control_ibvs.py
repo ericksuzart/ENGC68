@@ -20,6 +20,7 @@ class IBVS_Controller(object):
         self.scene = moveit_commander.PlanningSceneInterface()
         self.group_name = "manipulator"
         self.move_group = moveit_commander.MoveGroupCommander(self.group_name)
+        self.move_group.set_planner_id("RRTConnectkConfigDefault")
         self.display_trajectory_publisher = rospy.Publisher(
             "/move_group/display_planned_path",
             moveit_msgs.msg.DisplayTrajectory,
@@ -30,7 +31,7 @@ class IBVS_Controller(object):
         #rospy.Subscriber("/tag_detections_image", Image, self.image_proc)
     
     def ibvs_calc(self, msg):
-        rho = 10e-6
+        rho = 1e-6
         f = 0.0004621379699707031
         pp=[320, 240]
         X_20 = msg.detections[0].pose.pose.pose.position.x
@@ -67,12 +68,9 @@ class IBVS_Controller(object):
         jacob = np.concatenate((jacob_20, jacob_36, jacob_52), axis=0)
         jacob_inv = np.linalg.inv(jacob)
 
-        lambda_ = 0.5
-        dt = 0.1
-
-        u1_goal, v1_goal = self.uv_mapping(-0.0966414748963234, 0.17414187520082974, rho, f, pp)
-        u2_goal, v2_goal = self.uv_mapping(0.21511589930907404, 0.17841279418259656, rho, f, pp)
-        u3_goal, v3_goal = self.uv_mapping(-0.09211395953208155, -0.13859814091486256, rho, f, pp)
+        u1_goal, v1_goal = self.uv_mapping(0.13357790373665762, -0.0619602288646306, rho, f, pp)
+        u2_goal, v2_goal = self.uv_mapping(-0.17223203589067645, -0.10485254728027107, rho, f, pp)
+        u3_goal, v3_goal = self.uv_mapping(0.09529438798362971, 0.2464560031243486, rho, f, pp)
 
         goal = np.array([u1_goal - u_20,
                         v1_goal - v_20,
@@ -80,6 +78,9 @@ class IBVS_Controller(object):
                         v2_goal - v_36,
                         u3_goal - u_52,
                         v3_goal - v_52], dtype=np.float64)
+
+        lambda_ = 0.4
+        dt = 0.1
 
         v = lambda_ * np.matmul(jacob_inv, goal)
 
@@ -92,12 +93,12 @@ class IBVS_Controller(object):
         f_line = f/rho
         return np.array(
                 [[-f_line/z, 0, u/z, u*v/f_line, -((f_line**2) + (u**2))/f_line, v],
-                [0,   -f_line/z,   v/z, ((f_line**2) + (u**2))/f_line, -u*v/f_line, -u]]
+                [0, -f_line/z, v/z, ((f_line**2) + (u**2))/f_line, -u*v/f_line, -u]]
                 )
 
     def uv_mapping(self, x, y, rho, f, pp):
-        u = (f/rho)*x + pp[0]
-        v = (f/rho)*y + pp[1]
+        u = (f/rho)*x
+        v = (f/rho)*y
         return u, v
 
     def robot_planning(self, x_pose, y_pose, z_pose, roll, pitch, yaw):
