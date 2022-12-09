@@ -11,14 +11,14 @@
         <collision>
             <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
-                <box size="0.2 0.2 0.2"/>
+                <box size="0.4 0.6 0.6"/>
             </geometry>
         </collision>
         <visual>
             <origin rpy="0.0 0 0" xyz="0 0 0"/>
             <geometry>
                 <!--<box size="0.8 0.8 0.2"/>-->
-                <mesh filename="package://ibvs_projeto/urdf/tag0.dae"/>
+                <mesh filename="package://ibvs_projeto/urdf/tag_wall.dae"/>
             </geometry>
         </visual>
     </link>

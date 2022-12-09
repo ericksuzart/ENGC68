@@ -1,8 +1,8 @@
-tandalone_tags:
+standalone_tags:
   [
-    {id: 10, size: 0.15},
-    {id: 20, size: 0.1},
-    {id: 30, size: 0.07}
+    {id: 36, size: 0.13},
+    {id: 20, size: 0.20},
+    {id: 52, size: 0.16}
   ]
 tag_bundles:
   [

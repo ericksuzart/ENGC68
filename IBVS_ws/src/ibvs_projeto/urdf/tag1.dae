@@ -5,22 +5,22 @@
       <author>Blender User</author>
       <authoring_tool>Blender 3.4.0 commit date:2022-12-06, commit time:18:46, hash:a95bf1ac01be</authoring_tool>
     </contributor>
-    <created>2022-12-09T08:47:29</created>
-    <modified>2022-12-09T08:47:29</modified>
+    <created>2022-12-09T09:04:18</created>
+    <modified>2022-12-09T09:04:18</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
   <library_effects>
-    <effect id="tag0-effect">
+    <effect id="tag0_002-effect">
       <profile_COMMON>
-        <newparam sid="tag0_png-surface">
+        <newparam sid="tag25h9_png-surface">
           <surface type="2D">
-            <init_from>tag0_png</init_from>
+            <init_from>tag25h9_png</init_from>
           </surface>
         </newparam>
-        <newparam sid="tag0_png-sampler">
+        <newparam sid="tag25h9_png-sampler">
           <sampler2D>
-            <source>tag0_png-surface</source>
+            <source>tag25h9_png-surface</source>
           </sampler2D>
         </newparam>
         <technique sid="common">
@@ -29,7 +29,7 @@
               <color sid="emission">0 0 0 1</color>
             </emission>
             <diffuse>
-              <texture texture="tag0_png-sampler" texcoord="tag0-mesh-map-0"/>
+              <texture texture="tag25h9_png-sampler" texcoord="tag1-mesh-map-0"/>
             </diffuse>
             <index_of_refraction>
               <float sid="ior">1.45</float>
@@ -40,54 +40,54 @@
     </effect>
   </library_effects>
   <library_images>
-    <image id="tag0_png" name="tag0_png">
-      <init_from>tag0.png</init_from>
+    <image id="tag25h9_png" name="tag25h9_png">
+      <init_from>tag1.png</init_from>
     </image>
   </library_images>
   <library_materials>
-    <material id="tag0-material" name="tag0">
-      <instance_effect url="#tag0-effect"/>
+    <material id="tag0_002-material" name="tag0.002">
+      <instance_effect url="#tag0_002-effect"/>
     </material>
   </library_materials>
   <library_geometries>
-    <geometry id="tag0-mesh" name="tag0">
+    <geometry id="tag0_002-mesh" name="tag0.002">
       <mesh>
-        <source id="tag0-mesh-positions">
-          <float_array id="tag0-mesh-positions-array" count="24">-0.5 -0.5 0 0.5 -0.5 0 -0.5 0.5 0 0.5 0.5 0 -0.5 -0.5 0.01126539 0.5 -0.5 0.01126539 -0.5 0.5 0.01126539 0.5 0.5 0.01126539</float_array>
+        <source id="tag0_002-mesh-positions">
+          <float_array id="tag0_002-mesh-positions-array" count="24">-0.5 -0.5 0 0.5 -0.5 0 -0.5 0.5 0 0.5 0.5 0 -0.5 -0.5 0.01126533 0.5 -0.5 0.01126533 -0.5 0.5 0.01126533 0.5 0.5 0.01126533</float_array>
           <technique_common>
-            <accessor source="#tag0-mesh-positions-array" count="8" stride="3">
+            <accessor source="#tag0_002-mesh-positions-array" count="8" stride="3">
               <param name="X" type="float"/>
               <param name="Y" type="float"/>
               <param name="Z" type="float"/>
             </accessor>
           </technique_common>
         </source>
-        <source id="tag0-mesh-normals">
-          <float_array id="tag0-mesh-normals-array" count="18">0 0 -1 0 0 1 0 -1 0 1 0 0 -1 0 0 0 1 0</float_array>
+        <source id="tag0_002-mesh-normals">
+          <float_array id="tag0_002-mesh-normals-array" count="18">0 0 -1 0 0 1 0 -1 0 1 0 0 -1 0 0 0 1 0</float_array>
           <technique_common>
-            <accessor source="#tag0-mesh-normals-array" count="6" stride="3">
+            <accessor source="#tag0_002-mesh-normals-array" count="6" stride="3">
               <param name="X" type="float"/>
               <param name="Y" type="float"/>
               <param name="Z" type="float"/>
             </accessor>
           </technique_common>
         </source>
-        <source id="tag0-mesh-map-0">
-          <float_array id="tag0-mesh-map-0-array" count="72">0 1 1 0 0 0 1 0 0 1 0 0 1 0 0 0 0 0 1 1 1 0 1 0 0 0 0 1 0 1 0 1 1 1 1 1 0 1 1 1 1 0 1 0 1 1 0 1 1 0 1 0 0 0 1 1 1 1 1 0 0 0 0 0 0 1 0 1 0 1 1 1</float_array>
+        <source id="tag0_002-mesh-map-0">
+          <float_array id="tag0_002-mesh-map-0-array" count="72">0 1 1 0 0 0 1 0 0 1 0 0 1 0 0 0 0 0 1 1 1 0 1 0 0 0 0 1 0 1 0 1 1 1 1 1 0 1 1 1 1 0 1 0 1 1 0 1 1 0 1 0 0 0 1 1 1 1 1 0 0 0 0 0 0 1 0 1 0 1 1 1</float_array>
           <technique_common>
-            <accessor source="#tag0-mesh-map-0-array" count="36" stride="2">
+            <accessor source="#tag0_002-mesh-map-0-array" count="36" stride="2">
               <param name="S" type="float"/>
               <param name="T" type="float"/>
             </accessor>
           </technique_common>
         </source>
-        <vertices id="tag0-mesh-vertices">
-          <input semantic="POSITION" source="#tag0-mesh-positions"/>
+        <vertices id="tag0_002-mesh-vertices">
+          <input semantic="POSITION" source="#tag0_002-mesh-positions"/>
         </vertices>
-        <triangles material="tag0-material" count="12">
-          <input semantic="VERTEX" source="#tag0-mesh-vertices" offset="0"/>
-          <input semantic="NORMAL" source="#tag0-mesh-normals" offset="1"/>
-          <input semantic="TEXCOORD" source="#tag0-mesh-map-0" offset="2" set="0"/>
+        <triangles material="tag0_002-material" count="12">
+          <input semantic="VERTEX" source="#tag0_002-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#tag0_002-mesh-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#tag0_002-mesh-map-0" offset="2" set="0"/>
           <p>2 0 0 1 0 1 0 0 2 5 1 3 6 1 4 4 1 5 1 2 6 4 2 7 0 2 8 3 3 9 5 3 10 1 3 11 0 4 12 6 4 13 2 4 14 2 5 15 7 5 16 3 5 17 2 0 18 3 0 19 1 0 20 5 1 21 7 1 22 6 1 23 1 2 24 5 2 25 4 2 26 3 3 27 7 3 28 5 3 29 0 4 30 4 4 31 6 4 32 2 5 33 6 5 34 7 5 35</p>
         </triangles>
       </mesh>
@@ -95,13 +95,13 @@
   </library_geometries>
   <library_visual_scenes>
     <visual_scene id="Scene" name="Scene">
-      <node id="tag0" name="tag0" type="NODE">
+      <node id="tag1" name="tag1" type="NODE">
         <matrix sid="transform">0.2 0 0 0 0 0.2 0 0 0 0 0.8876671 0 0 0 0 1</matrix>
-        <instance_geometry url="#tag0-mesh" name="tag0">
+        <instance_geometry url="#tag0_002-mesh" name="tag1">
           <bind_material>
             <technique_common>
-              <instance_material symbol="tag0-material" target="#tag0-material">
-                <bind_vertex_input semantic="tag0-mesh-map-0" input_semantic="TEXCOORD" input_set="0"/>
+              <instance_material symbol="tag0_002-material" target="#tag0_002-material">
+                <bind_vertex_input semantic="tag1-mesh-map-0" input_semantic="TEXCOORD" input_set="0"/>
               </instance_material>
             </technique_common>
           </bind_material>

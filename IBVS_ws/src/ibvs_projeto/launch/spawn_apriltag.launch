@@ -2,12 +2,12 @@
 
 <launch>
     
-    <arg name="x" default="0.0" />
-    <arg name="y" default="0.5" />
-    <arg name="z" default="0.5" />
+    <arg name="x" default="0.75" />
+    <arg name="y" default="1.4" />
+    <arg name="z" default="0.8" />
     <arg name="roll" default="1.57"/>
     <arg name="pitch" default="0"/>
-    <arg name="yaw" default="0" />
+    <arg name="yaw" default="-1.57" />
     
     <arg name="urdf_robot_file" value="$(find ibvs_projeto)/urdf/apriltag.urdf" />
     <arg name="robot_name" value="april_tag" />
