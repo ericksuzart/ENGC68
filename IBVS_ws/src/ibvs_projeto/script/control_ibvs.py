@@ -33,7 +33,7 @@ class IBVS_Controller(object):
             queue_size=20,
         )
         #self.pub_move = rospy.Publisher('/husky_velocity_controller/cmd_vel', Twist, queue_size = 15)
-        self.pub_goal = rospy.Publisher('/ibvs_pose_goal', PoseStamped, queue_size = 1)
+        #self.pub_goal = rospy.Publisher('/ibvs_pose_goal', PoseStamped, queue_size = 1)
         rospy.Subscriber("/tag_detections", AprilTagDetectionArray, self.ibvs_calc)
         #rospy.Subscriber("/tag_detections_image", Image, self.image_proc)
     
@@ -90,8 +90,8 @@ class IBVS_Controller(object):
                         u3_goal - u_52,
                         v3_goal - v_52], dtype=np.float64)
 
-        lambda_= 0.2
-        dt = 0.1
+        lambda_= 0.3
+        dt = 0.3
 
         v = lambda_ * np.matmul(jacob_inv, goal)
 
@@ -114,15 +114,15 @@ class IBVS_Controller(object):
 
     def robot_planning(self, x_pose, y_pose, z_pose, roll, pitch, yaw):
         pose_goal = self.move_group.get_current_pose().pose
+        rpy_scale = 0.03
         curr_w = pose_goal.orientation.w
         curr_x = pose_goal.orientation.x
         curr_y = pose_goal.orientation.y
         curr_z = pose_goal.orientation.z
         curr_roll, curr_pitch, curr_yaw = self.get_rotation(curr_w, curr_x, curr_y, curr_z)
-        new_roll = curr_roll + roll
-        new_pitch = curr_pitch + pitch
-        new_yaw = curr_yaw + yaw
-        print(roll, pitch, yaw, new_roll, new_pitch, new_yaw)
+        new_roll = curr_roll + rpy_scale*roll
+        new_pitch = curr_pitch + rpy_scale*pitch
+        new_yaw = curr_yaw + rpy_scale*yaw
         
         w_orient, x_orient, y_orient, z_orient = self.get_orientation(new_roll, new_pitch, new_yaw)
         pose_goal.orientation.w = w_orient
@@ -146,7 +146,8 @@ class IBVS_Controller(object):
         '''
 
         self.move_group.set_pose_target(pose_goal)
-        self.move_group.plan()
+        for i in range(5):
+            self.move_group.plan()
         success = self.move_group.go(wait=True)
         # Calling `stop()` ensures that there is no residual movement
         self.move_group.stop()
